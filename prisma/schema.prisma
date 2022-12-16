@@ -1,0 +1,145 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model clientes {
+  CODIGO           Int      @id @default(0)
+  NOME             String?  @default("") @db.VarChar(80)
+  FANTASIA         String?  @default("") @db.VarChar(50)
+  CPF_CNPJ         String?  @default("") @db.VarChar(14)
+  RG_IE            String?  @default("") @db.VarChar(14)
+  RUA              String?  @default("") @db.VarChar(80)
+  BAIRRO           String?  @default("") @db.VarChar(30)
+  CIDADE           String?  @default("") @db.VarChar(40)
+  ESTADO           String?  @default("") @db.VarChar(2)
+  CEP              String?  @default("") @db.VarChar(10)
+  COMPLEMENTO      String?  @default("") @db.VarChar(80)
+  NUMERO           Int?     @default(0)
+  OBS              String?  @default("") @db.VarChar(100)
+  EMAIL            String?  @default("") @db.VarChar(50)
+  TELEFONE         String?  @default("") @db.VarChar(20)
+  STATUS           String?  @default("A") @db.Char(1)
+  VLR_TOTAL_VENDAS Decimal? @default(0.00) @db.Decimal(13, 2)
+}
+
+model clientes_exportacao {
+  CODIGO      Int     @id @default(0)
+  NOME        String? @default("") @db.VarChar(80)
+  FANTASIA    String? @default("") @db.VarChar(50)
+  CPF_CNPJ    String? @default("") @db.VarChar(18)
+  RG_IE       String? @default("") @db.VarChar(14)
+  RUA         String? @default("") @db.VarChar(80)
+  BAIRRO      String? @default("") @db.VarChar(30)
+  CIDADE      String? @default("") @db.VarChar(40)
+  ESTADO      String? @default("") @db.VarChar(2)
+  CEP         String? @default("") @db.VarChar(10)
+  COMPLEMENTO String? @default("") @db.VarChar(80)
+  NUMERO      Int?    @default(0)
+  OBS         String? @default("") @db.VarChar(100)
+  EMAIL       String? @default("") @db.VarChar(50)
+  TELEFONE    String? @default("") @db.VarChar(20)
+  STATUS      String? @default("A") @db.Char(1)
+}
+
+model condpgto {
+  CODIGO    Int     @id
+  CONDPGTO  String? @default("") @db.VarChar(30)
+  PARCELAS  Int?    @default(0)
+  INTERVALO String? @default("0") @db.VarChar(4)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model config {
+  TAXA_JUROS      Decimal? @default(0.00) @db.Decimal(13, 2)
+  VERSAO_SERVIDOR Int?     @default(0)
+  GERA_LOG_TXT    String?  @default("S") @db.Char(1)
+  ALTERA_PRECOS   Boolean? @default(false)
+
+  @@ignore
+}
+
+model forma_pagamento {
+  CODIGO Int     @id @default(0)
+  NOME   String? @default("") @db.VarChar(50)
+}
+
+model pedido {
+  CODIGO         Int       @id @default(0)
+  DATA           DateTime? @default(dbgenerated("('0000-00-00')")) @db.Date
+  HORA           DateTime? @default(dbgenerated("('00:00:00')")) @db.Time(0)
+  CLIENTE        Int?      @default(0)
+  VENDEDOR       Int?      @default(0)
+  OBS_PEDIDO     String?   @default("") @db.VarChar(60)
+  OBS_NFE        String?   @default("") @db.VarChar(60)
+  VLR_PRODUTOS   Decimal?  @default(0.00) @db.Decimal(13, 2)
+  PERC_DESCONTO  Decimal?  @default(0.00) @db.Decimal(13, 2)
+  VLR_DESCONTO   Decimal?  @default(0.00) @db.Decimal(13, 2)
+  PERC_ACRESCIMO Decimal?  @default(0.00) @db.Decimal(13, 2)
+  VLR_ACRESCIMO  Decimal?  @default(0.00) @db.Decimal(13, 2)
+  VLR_TOTAL      Decimal?  @default(0.00) @db.Decimal(13, 2)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model pedido_item {
+  PEDIDO        Int?      @default(0)
+  DATA          DateTime? @default(dbgenerated("('0000-00-00')")) @db.Date
+  HORA          DateTime? @default(dbgenerated("('00:00:00')")) @db.Time(0)
+  ITEM          Int?      @default(0)
+  PRODUTO       Int?      @default(0)
+  QUANTIDADE    Decimal?  @default(0.00) @db.Decimal(13, 2)
+  UNIDADE       String?   @default("") @db.VarChar(3)
+  VLR_VENDA     Decimal?  @default(0.00) @db.Decimal(13, 2)
+  VLR_UNITARIO  Decimal?  @default(0.00) @db.Decimal(13, 2)
+  PERC_DESCONTO Decimal?  @default(0.00) @db.Decimal(13, 2)
+  VLR_DESCONTO  Decimal?  @default(0.00) @db.Decimal(13, 2)
+  VLR_TOTAL     Decimal?  @default(0.00) @db.Decimal(13, 2)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model pedido_pagamento {
+  PEDIDO          Int?     @default(0)
+  FORMA_PAGAMENTO Int?     @default(0)
+  VALOR           Decimal? @default(0.00) @db.Decimal(13, 2)
+
+  @@ignore
+}
+
+model produtos {
+  CODIGO          Int      @id @default(0)
+  NOME            String?  @default("") @db.VarChar(50)
+  UNIDADE         String?  @default("") @db.VarChar(3)
+  VLR_VENDA       Decimal? @default(0.00) @db.Decimal(13, 2)
+  ESTOQUE         Decimal? @default(0.00) @db.Decimal(13, 2)
+  GRUPO           Int?     @default(0)
+  GRUPO_NOME      String?  @default("") @db.VarChar(50)
+  SUBGRUPO        Int?     @default(0)
+  SUBGRUPO_NOME   String?  @default("") @db.VarChar(50)
+  MARCA           Int?     @default(0)
+  MARCA_NOME      String?  @default("") @db.VarChar(50)
+  FORNECEDOR      Int?     @default(0)
+  FORNECEDOR_NOME String?  @default("") @db.VarChar(50)
+}
+
+model titulos {
+  CODIGO     Int       @id @default(autoincrement())
+  CLIENTE    Int?      @default(0)
+  TITULO     String?   @default("") @db.VarChar(10)
+  PARCELA    Int?      @default(0)
+  VENCIMENTO DateTime? @default(dbgenerated("('0000-00-00')")) @db.Date
+  VALOR      Decimal?  @default(0.00) @db.Decimal(13, 2)
+  CODVENDA   Int?      @default(0)
+}
+
+model vendedores {
+  CODIGO  Int     @id @default(0)
+  NOME    String? @default("") @db.VarChar(50)
+  USUARIO String? @default("") @db.VarChar(30)
+  SENHA   String? @default("") @db.VarChar(30)
+}
