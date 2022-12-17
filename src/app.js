@@ -1,18 +1,15 @@
-const { PrismaClient } = require("@prisma/client");
+const express = require("express");
+const app = express();
+const port = 5200;
 
-const prisma = new PrismaClient();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-const main = async () => {
-  const allClients = await prisma.clientes.findMany();
-  console.log(allClients);
-};
+// routes
+const client = require("./routes/clients");
 
-main()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
+app.use("/clients", client);
+
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
+});
