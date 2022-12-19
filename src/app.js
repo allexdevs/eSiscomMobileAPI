@@ -6,8 +6,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // routes
+const login = require("./routes/login");
 const client = require("./routes/clients");
 
+app.use("/auth", login);
 app.use("/clients", client);
 
 app.listen(port, () => {

@@ -9,7 +9,7 @@ const addClient = require("../controllers/clientsController/addClient");
 const deleteClient = require("../controllers/clientsController/deleteClient");
 const updateClient = require("../controllers/clientsController/updateClient");
 
-// find all customers
+// routes
 router.get("/findAll", getClients);
 router.get("/findById/:id", getClientById);
 router.post("/add", addClient);
