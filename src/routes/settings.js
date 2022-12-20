@@ -3,8 +3,8 @@ const express = require("express");
 const router = express.Router();
 
 // controllers
-const authenticateUser = require("../controllers/loginController/authenticateUser");
+const initialConfig = require("../controllers/settingsController/initialConfig");
 
-router.get("/login", authenticateUser);
+router.post("/config", initialConfig);
 
 module.exports = router;

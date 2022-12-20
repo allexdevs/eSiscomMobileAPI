@@ -1,0 +1,9 @@
+{
+  "settings": {
+    "host": "mysql.focosistemas.com.br",
+    "database": "focosistemas10",
+    "username": "focosistemas10",
+    "password": "foco1234",
+    "port": 3306
+  }
+}
