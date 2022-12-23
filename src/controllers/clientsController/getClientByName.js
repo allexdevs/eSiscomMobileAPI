@@ -24,9 +24,11 @@ module.exports = async (req, res) => {
   let customerName = req.params.name;
 
   const getCustomerByName = async () => {
-    const customer = await prisma.clientes.findFirst({
+    const customer = await prisma.clientes.findMany({
       where: {
-        NOME: customerName,
+        NOME: {
+            contains: customerName
+        }
       },
     });
 
@@ -34,12 +36,14 @@ module.exports = async (req, res) => {
       res.status(404).send({
         status: "error",
         message: "Nenhum cliente com esse nome foi encontrado",
-        payload: customerName,
+        params: customerName,
+        payload: {}
       });
     } else {
-      res.status(404).send({
+      res.status(200).send({
         status: "success",
         message: "Cliente localizado com sucesso",
+        params: customerName,
         payload: customer,
       });
     }
