@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
   let id = parseInt(req.params.id);
 
   const getCustomerById = async () => {
-    const customer = await prisma.clientes.findFirst({
+    const customer = await prisma.clientes.findUnique({
       where: {
         CODIGO: id,
       },
