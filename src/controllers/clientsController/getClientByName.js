@@ -27,8 +27,8 @@ module.exports = async (req, res) => {
     const customer = await prisma.clientes.findMany({
       where: {
         NOME: {
-            contains: customerName
-        }
+          contains: customerName,
+        },
       },
     });
 
@@ -37,7 +37,7 @@ module.exports = async (req, res) => {
         status: "error",
         message: "Nenhum cliente com esse nome foi encontrado",
         params: customerName,
-        payload: {}
+        payload: {},
       });
     } else {
       res.status(200).send({

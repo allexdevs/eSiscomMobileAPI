@@ -35,14 +35,14 @@ module.exports = async (req, res) => {
         status: "error",
         message: "Nenhum cliente com o id fornecido foi encontrado",
         params: id,
-        payload: {}
+        payload: {},
       });
     } else {
       res.status(200).send({
         status: "success",
         message: "Cliente localizado com sucesso",
         params: id,
-        payload: customer
+        payload: customer,
       });
     }
   };

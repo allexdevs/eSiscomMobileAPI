@@ -11,7 +11,8 @@
   "dependencies": {
     "@prisma/client": "^4.7.1",
     "express": "^4.18.2",
-    "lowdb": "1.0.0"
+    "lowdb": "1.0.0",
+    "node-fetch": "1.7.3"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.0.0",

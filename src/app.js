@@ -16,10 +16,12 @@ db.defaults({ settings: {} }).write();
 const login = require("./routes/login");
 const client = require("./routes/clients");
 const settings = require("./routes/settings");
+const address = require("./routes/address");
 
 app.use("/auth", login);
 app.use("/clients", client);
 app.use("/settings", settings);
+app.use("/address", address);
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
