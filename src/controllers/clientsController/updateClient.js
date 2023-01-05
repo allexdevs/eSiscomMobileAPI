@@ -37,12 +37,12 @@ module.exports = async (req, res) => {
         ESTADO: req.body.estado,
         CEP: req.body.cep,
         COMPLEMENTO: req.body.complemento,
-        NUMERO: req.body.numero,
+        NUMERO: parseInt(req.body.numero),
         OBS: req.body.obs,
         EMAIL: req.body.email,
         TELEFONE: req.body.telefone,
         STATUS: req.body.status,
-        VLR_TOTAL_VENDAS: req.body.vlr_total_vendas,
+        VLR_TOTAL_VENDAS: parseFloat(req.body.vlr_total_vendas),
       },
     });
 

@@ -35,7 +35,21 @@ module.exports = async (req, res) => {
     !req.body.telefone
   ) {
     res.status(400).send({
-      message: "A requisição possui campos em branco",
+      status: "error",
+      payload: {
+        nome: req.body.nome,
+        fantasia: req.body.fantasia,
+        cpf_cnpj: req.body.cpf_cnpj,
+        rg_ie: req.body.rg_ie,
+        rua: req.body.rua,
+        bairro: req.body.bairro,
+        cidade: req.body.cidade,
+        estado: req.body.estado,
+        cep: req.body.cep,
+        numero: req.body.numero,
+        telefone: req.body.telefone,
+      },
+      error: "A requisição possui campos em branco",
     });
   } else {
     const getLstId = async () => {
