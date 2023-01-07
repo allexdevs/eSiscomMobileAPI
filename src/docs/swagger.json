@@ -1,0 +1,114 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "eSiscom Mobile API",
+    "description": "API para integração com o aplicativo eSiscom Mobile",
+    "termsOfService": "http://localhost:5200/terms",
+    "contact": {
+      "name": "Foco Sistemas Development",
+      "url": "https://www.focosistemas.com.br",
+      "email": "contato@focosistemas.net"
+    },
+    "license": {
+      "name": "Foco Sistemas",
+      "url": "https://www.focosistemas.com.br"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5200",
+      "description": "API de Desenvolvimento"
+    }
+  ],
+  "paths": {
+    "/clients/add": {
+      "post": {
+        "description": "Essa rota tem como objetivo cadastrar um novo cliente",
+        "tags": ["Cadastro de Clientes"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cliente"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Cliente": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "required": true
+          },
+          "fantasia": {
+            "type": "string",
+            "required": true
+          },
+          "cpf_cnpj": {
+            "type": "string",
+            "required": true
+          },
+          "rg_ie": {
+            "type": "string",
+            "required": true
+          },
+          "rua": {
+            "type": "string",
+            "required": true
+          },
+          "bairro": {
+            "type": "string",
+            "required": true
+          },
+          "cidade": {
+            "type": "string",
+            "required": true
+          },
+          "estado": {
+            "type": "string",
+            "required": true
+          },
+          "cep": {
+            "type": "string",
+            "required": true
+          },
+          "complemento": {
+            "type": "string",
+            "required": false
+          },
+          "numero": {
+            "type": "number",
+            "required": true
+          },
+          "obs": {
+            "type": "string",
+            "required": false
+          },
+          "email": {
+            "type": "string",
+            "requried": false
+          },
+          "telefone": {
+            "type": "string",
+            "required": true
+          },
+          "status": {
+            "type": "string",
+            "required": false
+          },
+          "vlr_total_vendas": {
+            "type": "number",
+            "required": false
+          }
+        }
+      }
+    }
+  }
+}

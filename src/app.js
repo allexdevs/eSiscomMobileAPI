@@ -5,9 +5,14 @@ const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync("./src/db.json");
 const db = low(adapter);
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./docs/swagger.json");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// docs
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // storage local
 db.defaults({ settings: {} }).write();
