@@ -10,7 +10,7 @@ module.exports = (req, res) => {
     database: req.body.database,
     username: req.body.username,
     password: req.body.password,
-    port: req.body.port,
+    port: parseInt(req.body.port, 10),
   };
 
   if (

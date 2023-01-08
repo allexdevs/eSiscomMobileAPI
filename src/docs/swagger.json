@@ -113,7 +113,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AddClient"
+                "$ref": "#/components/schemas/Client"
               }
             }
           }
@@ -183,11 +183,34 @@
           }
         }
       }
+    },
+    "/settings/config": {
+      "post": {
+        "description": "Essa rota é responsável por realizar a configuração inicial da API",
+        "tags": ["Configuração"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Settings"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Configuração bem sucedida"
+          },
+          "400": {
+            "description": "Não foi possível realizar a configuração"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
-      "AddClient": {
+      "Client": {
         "type": "object",
         "properties": {
           "nome": {
@@ -253,6 +276,31 @@
           "vlr_total_vendas": {
             "type": "number",
             "required": false
+          }
+        }
+      },
+      "Settings": {
+        "type": "object",
+        "properties": {
+          "host": {
+            "type": "string",
+            "required": true
+          },
+          "database": {
+            "type": "string",
+            "required": true
+          },
+          "username": {
+            "type": "string",
+            "required": true
+          },
+          "password": {
+            "type": "string",
+            "required": true
+          },
+          "port": {
+            "type": "number",
+            "required": true
           }
         }
       }
