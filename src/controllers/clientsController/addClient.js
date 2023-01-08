@@ -55,11 +55,11 @@ module.exports = async (req, res) => {
     const getLstId = async () => {
       let lastId = 0;
       let count = await prisma.clientes.count();
-      lastId = parseInt(count + 1);
+      lastId = count + 1;
       console.log(lastId);
 
       const customerData = {
-        CODIGO: lastId,
+        CODIGO: parseInt(lastId, 11),
         NOME: req.body.nome,
         FANTASIA: req.body.fantasia,
         CPF_CNPJ: req.body.cpf_cnpj,

@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
     });
 
     if (!userData) {
-      res.status(404).send({
+      res.status(400).send({
         message: "Usuário ou senha incorretos",
         status: "error",
       });

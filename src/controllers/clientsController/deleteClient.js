@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /*global process */
 "use strict";
 const low = require("lowdb");
@@ -30,16 +31,16 @@ module.exports = async (req, res) => {
       },
     });
 
-    if (!customer) {
-      res.status(404).send({
-        message: "Nenhum cliente encontrado com o id informado",
-      });
-    } else {
-      res.status(200).send({
-        message: "Cliente excluído com sucesso",
-        payload: customer,
-      });
-    }
+    res.status(200).send({
+      status: "success",
+      message: "Cliente excluído com sucesso",
+      params: {
+        name: "id",
+        type: "number",
+        value: id,
+      },
+      payload: customer,
+    });
   };
 
   deleteCustomer()
@@ -47,7 +48,6 @@ module.exports = async (req, res) => {
       await prisma.$disconnect();
     })
     .catch(async (e) => {
-      console.log(e);
       await prisma.$disconnect();
       process.exit(1);
     });
