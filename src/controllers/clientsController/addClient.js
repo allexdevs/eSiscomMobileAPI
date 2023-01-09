@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
     !req.body.cidade ||
     !req.body.estado ||
     !req.body.cep ||
-    !req.body.numero ||
+    req.body.numero === "" ||
     !req.body.telefone
   ) {
     res.status(400).send({
