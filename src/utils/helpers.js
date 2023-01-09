@@ -9,15 +9,20 @@ const normalizePort = (value) => {
   return false;
 };
 
-const checkEmptyValues = (keys) => {
+const checkEmptyValues = (keys, userKeys) => {
   const listOfValues = [];
 
   for (var [key, value] of Object.entries(keys)) {
-    if (value === "") {
-      listOfValues.push({
-        parameter: key,
-        status: "empty",
-      });
+    for (var k in userKeys) {
+      if (key === k) continue;
+      else {
+        if (value === "") {
+          listOfValues.push({
+            parameter: key,
+            status: "empty",
+          });
+        }
+      }
     }
   }
 

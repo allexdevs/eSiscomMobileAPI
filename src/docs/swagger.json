@@ -420,6 +420,30 @@
         }
       }
     },
+    "/requests/add": {
+      "post": {
+        "description": "Essa rota é responsável pela adição de um novo pedido",
+        "tags": ["Requests"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pedido dicionado com sucesso"
+          },
+          "400": {
+            "description": "A requisição possui campos em branco"
+          },
+          "500": {
+            "description": "Não foi possível concluir essa operação"
+          }
+        }
+      }
+    },
     "/settings/config": {
       "post": {
         "description": "Essa rota é responsável por realizar a configuração inicial da API",
@@ -590,6 +614,19 @@
           "fornecedor_nome": {
             "type": "string",
             "required": false
+          }
+        }
+      },
+      "Request": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "string",
+            "required": true
+          },
+          "hora": {
+            "type": "string",
+            "required": true
           }
         }
       }

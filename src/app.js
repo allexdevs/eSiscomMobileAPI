@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 5200;
+const port = 4100;
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync("./src/db.json");
@@ -23,12 +23,14 @@ const client = require("./routes/clients");
 const settings = require("./routes/settings");
 const address = require("./routes/address");
 const products = require("./routes/products");
+const requests = require("./routes/requests");
 
 app.use("/auth", login);
 app.use("/clients", client);
 app.use("/settings", settings);
 app.use("/address", address);
 app.use("/products", products);
+app.use("/requests", requests);
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
