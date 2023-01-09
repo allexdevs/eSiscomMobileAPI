@@ -53,13 +53,11 @@ module.exports = async (req, res) => {
     });
   } else {
     const getLstId = async () => {
-      let lastId = 0;
-      let count = await prisma.clientes.count();
-      lastId = count + 1;
-      console.log(lastId);
+      let lastId =
+        await prisma.$queryRaw`SELECT MAX(CODIGO) as 'value' FROM clientes;`;
 
       const customerData = {
-        CODIGO: parseInt(lastId, 11),
+        CODIGO: parseInt(lastId[0].value + 1, 10),
         NOME: req.body.nome,
         FANTASIA: req.body.fantasia,
         CPF_CNPJ: req.body.cpf_cnpj,

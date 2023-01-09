@@ -9,6 +9,25 @@ const normalizePort = (value) => {
   return false;
 };
 
+const checkEmptyValues = (keys) => {
+  const listOfValues = [];
+
+  for (var [key, value] of Object.entries(keys)) {
+    if (value === "") {
+      listOfValues.push({
+        parameter: key,
+        status: "empty",
+      });
+    }
+  }
+
+  return listOfValues;
+};
+
+const upperCase = (value) => (value !== "" ? value.toUpperCase() : value);
+
 module.exports = {
   normalizePort,
+  checkEmptyValues,
+  upperCase,
 };
