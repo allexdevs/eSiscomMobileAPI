@@ -7,10 +7,94 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/address/searchZipCode": {
+      "get": {
+        "description": "Essa rota é responsável pela pesquisa de CEP",
+        "tags": ["Address"],
+        "parameters": [
+          {
+            "name": "uf",
+            "in": "query",
+            "allowEmptyValue": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "allowEmptyValue": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "public_place",
+            "in": "query",
+            "allowEmptyValue": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "CEP localizado com sucesso"
+          }
+        }
+      }
+    },
+    "/address/consultAddress": {
+      "get": {
+        "description": "Essa rota é responsável pela consulta de CEP",
+        "tags": ["Address"],
+        "parameters": [
+          {
+            "name": "zipCode",
+            "in": "query",
+            "allowEmptyValue": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Consulta realizada com sucesso"
+          }
+        }
+      }
+    },
+    "/address/listCounties": {
+      "get": {
+        "description": "Essa rota é responsável pela pesquisa de cidades por estoado",
+        "tags": ["Address"],
+        "parameters": [
+          {
+            "name": "uf",
+            "in": "query",
+            "allowEmptyValue": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca realizada com sucesso"
+          }
+        }
+      }
+    },
     "/auth/login": {
       "get": {
         "description": "Essa rota é responsável pelo acesso dos usuários ao sistema",
-        "tags": ["Autenticação"],
+        "tags": ["Authentication"],
         "parameters": [
           {
             "name": "username",
@@ -44,7 +128,7 @@
     "/clients/findAll": {
       "get": {
         "description": "Essa rota tem como objetivo retornar todos os clientes cadastrados no banco de dados",
-        "tags": ["Cadastro de Clientes"],
+        "tags": ["Clients"],
         "responses": {
           "200": {
             "description": ""
@@ -58,7 +142,7 @@
     "/clients/findById/{id}": {
       "get": {
         "description": "Essa rota tem como objetivo realizar uma busca para encontrar um cliente pelo seu id único no banco de dados",
-        "tags": ["Cadastro de Clientes"],
+        "tags": ["Clients"],
         "parameters": [
           {
             "name": "id",
@@ -83,7 +167,7 @@
     "/clients/findByName/{name}": {
       "get": {
         "description": "Essa rota tem como objetivo localizar um cliente pelo seu nome ou por parte dele",
-        "tags": ["Cadastro de Clientes"],
+        "tags": ["Clients"],
         "parameters": [
           {
             "name": "name",
@@ -108,7 +192,7 @@
     "/clients/add": {
       "post": {
         "description": "Essa rota tem como objetivo cadastrar um novo cliente",
-        "tags": ["Cadastro de Clientes"],
+        "tags": ["Clients"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -134,7 +218,7 @@
     "/clients/update/{id}": {
       "put": {
         "description": "Essa rota tem como objetivo atualizar os dados do cliente pelo seu id",
-        "tags": ["Cadastro de Clientes"],
+        "tags": ["Clients"],
         "parameters": [
           {
             "name": "id",
@@ -150,7 +234,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AddClient"
+                "$ref": "#/components/schemas/Client"
               }
             }
           }
@@ -165,7 +249,7 @@
     "/clients/delete/{id}": {
       "delete": {
         "description": "Essa rota tem como objetivo excluir um cliente pelo seu id",
-        "tags": ["Cadastro de Clientes"],
+        "tags": ["Clients"],
         "parameters": [
           {
             "name": "id",
@@ -184,10 +268,162 @@
         }
       }
     },
+    "/products/findAll": {
+      "get": {
+        "description": "Essa rota é responsável pela pesquisa e retorno de todos os produtos salvos no banco de dados",
+        "tags": ["Products"],
+        "responses": {
+          "200": {
+            "description": "Busca realizada com sucesso"
+          }
+        }
+      }
+    },
+    "/products/findById/{id}": {
+      "get": {
+        "description": "Essa rota é responsável pela pesquisa de um produto pelo seu id",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "allowEmptyValue": false,
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produto encontrado com sucesso"
+          },
+          "404": {
+            "description": "Produto não encontrado"
+          }
+        }
+      }
+    },
+    "/products/findByName/{name}": {
+      "get": {
+        "description": "Essa rota é responsável pela pesquisa de um produto pelo seu nome",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "allowEmptyValue": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produto encontrado com sucesso"
+          },
+          "404": {
+            "description": "Produto não encontrado"
+          }
+        }
+      }
+    },
+    "/products/add": {
+      "post": {
+        "description": "Essa rota é responsável por adicionar produto",
+        "tags": ["Products"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Produto adicionado com sucesso"
+          },
+          "400": {
+            "description": "A requisição possui campos em branco"
+          },
+          "500": {
+            "description": "Não foi possível concluir essa operação"
+          }
+        }
+      }
+    },
+    "/products/update/{id}": {
+      "put": {
+        "description": "Essa rota é responsável pela atualização de um produto",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "allowEmptyValue": false,
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Produto atualizado com sucesso"
+          },
+          "400": {
+            "description": "A requisição possui valores inválidos"
+          },
+          "404": {
+            "description": "Nenhum produto encontrado com o id informado"
+          },
+          "500": {
+            "description": "Não foi possível concluir essa operação"
+          }
+        }
+      }
+    },
+    "/products/delete/{id}": {
+      "delete": {
+        "description": "Essa rota é responsável pela exclusão de um produto",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "allowEmptyValue": false,
+            "required": true,
+            "Schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produto excluído com sucesso"
+          },
+          "500": {
+            "description": "Não foi possívele concluir essa operação"
+          }
+        }
+      }
+    },
     "/settings/config": {
       "post": {
         "description": "Essa rota é responsável por realizar a configuração inicial da API",
-        "tags": ["Configuração"],
+        "tags": ["Settings"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -301,6 +537,59 @@
           "port": {
             "type": "number",
             "required": true
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "required": true
+          },
+          "unidade": {
+            "type": "string",
+            "required": false
+          },
+          "vlr_venda": {
+            "type": "number",
+            "required": true
+          },
+          "estoque": {
+            "type": "number",
+            "required": true
+          },
+          "grupo": {
+            "type": "number",
+            "required": false
+          },
+          "grupo_nome": {
+            "type": "string",
+            "required": true
+          },
+          "subgrupo": {
+            "type": "number",
+            "required": false
+          },
+          "subgrupo_nome": {
+            "type": "string",
+            "required": false
+          },
+          "marca": {
+            "type": "number",
+            "required": false
+          },
+          "marca_nome": {
+            "type": "string",
+            "required": false
+          },
+          "fornecedor": {
+            "type": "number",
+            "required": false
+          },
+          "fornecedor_nome": {
+            "type": "string",
+            "required": false
           }
         }
       }
