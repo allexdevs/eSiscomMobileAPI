@@ -13,20 +13,20 @@ const checkEmptyValues = (keys, userKeys) => {
   const listOfValues = [];
 
   for (var [key, value] of Object.entries(keys)) {
-    for (var k in userKeys) {
-      if (key === k) continue;
-      else {
-        if (value === "") {
-          listOfValues.push({
-            parameter: key,
-            status: "empty",
-          });
-        }
-      }
+    if (!value) {
+      listOfValues.push({
+        parameter: key,
+      });
     }
   }
 
-  return listOfValues;
+  const checkedKeys = listOfValues.filter((key, index) => {
+    return key.parameter !== userKeys[index] ? key.parameter : null;
+  });
+
+  console.log(checkedKeys);
+
+  return checkedKeys;
 };
 
 const upperCase = (value) => (value !== "" ? value.toUpperCase() : value);
