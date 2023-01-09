@@ -21,8 +21,6 @@ const prisma = new PrismaClient({
 });
 
 module.exports = async (req, res) => {
-  let host = req.query.host;
-
   const getAllCustomers = async () => {
     const allCustomers = await prisma.clientes.findMany();
     if (allCustomers.length <= 0) {
@@ -43,6 +41,4 @@ module.exports = async (req, res) => {
       await prisma.$disconnect();
       process.exit(1);
     });
-
-  console.log(host);
 };
