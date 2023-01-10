@@ -29,10 +29,14 @@ const checkEmptyValues = (keys, userKeys) => {
   return checkedKeys;
 };
 
+const removeMask = (value) =>
+  value !== "" ? value.replace(/[a-z]|[A-Z]|[?!@$%&*|\\/#]/g, "") : null;
+
 const upperCase = (value) => (value !== "" ? value.toUpperCase() : value);
 
 module.exports = {
   normalizePort,
   checkEmptyValues,
   upperCase,
+  removeMask,
 };

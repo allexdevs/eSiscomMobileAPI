@@ -189,6 +189,62 @@
         }
       }
     },
+    "/clients/findByCPF/{cpf}": {
+      "get": {
+        "description": "Essa rota é responsável pela pesquisa de clientes por CPF",
+        "tags": ["Clients"],
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "path",
+            "allowEmptyValue": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cliente encontrado com sucesso"
+          },
+          "404": {
+            "description": "Nenhum cliente encontrado com o CPF informado"
+          },
+          "500": {
+            "description": "Não foi possível concluir essa operação"
+          }
+        }
+      }
+    },
+    "/clients/findByCNPJ/{cnpj}": {
+      "get": {
+        "description": "Essa rota é responsável pela pesquisa de clientes por CNPJ",
+        "tags": ["Clients"],
+        "parameters": [
+          {
+            "name": "cnpj",
+            "in": "path",
+            "allowEmptyValue": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cliente encontrado com sucesso"
+          },
+          "404": {
+            "description": "Nenhum cliente encontrado com o CNPJ informado"
+          },
+          "500": {
+            "description": "Não foi possível concluir essa operação"
+          }
+        }
+      }
+    },
     "/clients/add": {
       "post": {
         "description": "Essa rota tem como objetivo cadastrar um novo cliente",
@@ -427,7 +483,9 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {}
+              "schema": {
+                "$ref": "#/components/schemas/Request"
+              }
             }
           }
         },
@@ -626,6 +684,46 @@
           },
           "hora": {
             "type": "string",
+            "required": true
+          },
+          "cliente": {
+            "type": "number",
+            "required": true
+          },
+          "vendedor": {
+            "type": "number",
+            "required": true
+          },
+          "obs_pedido": {
+            "type": "string",
+            "required": false
+          },
+          "obs_nfe": {
+            "type": "string",
+            "required": false
+          },
+          "vlr_produtos": {
+            "type": "number",
+            "required": true
+          },
+          "perc_desconto": {
+            "type": "number",
+            "required": false
+          },
+          "vlr_desconto": {
+            "type": "number",
+            "required": false
+          },
+          "perc_acrescimo": {
+            "type": "number",
+            "required": false
+          },
+          "vlr_acrescimo": {
+            "type": "number",
+            "reuired": false
+          },
+          "vlr_total": {
+            "type": "number",
             "required": true
           }
         }
