@@ -385,6 +385,118 @@
         }
       }
     },
+    "/products/findByGroup/{group}": {
+      "get": {
+        "description": "Essa rota é responsável pela pesquisa de um produto pelo seu grupo",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "group",
+            "in": "path",
+            "allowEmptyValue": false,
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produto(s) localizado(s) com sucesso"
+          },
+          "404": {
+            "description": "Nenhum produto encontrado com o grupo informado"
+          },
+          "500": {
+            "description": "Não foi possível concluir essa operação"
+          }
+        }
+      }
+    },
+    "/products/findBySubGroup/{subgroup}": {
+      "get": {
+        "description": "Essa rota é responsável pela pesquisa de um produto pelo seu subgrupo",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "subgroup",
+            "in": "path",
+            "allowEmptyValue": false,
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produto(s) localizado(s) com sucesso"
+          },
+          "404": {
+            "description": "Nenhum produto encontrado com o subgrupo informado"
+          },
+          "500": {
+            "description": "Não foi possível concluir essa operação"
+          }
+        }
+      }
+    },
+    "/products/findByBrand/{brand}": {
+      "get": {
+        "description": "Essa rota é responsável pela pesquisa de um produto pela sua marca",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "brand",
+            "in": "path",
+            "allowEmptyValue": false,
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produto(s) localizado(s) com sucesso"
+          },
+          "404": {
+            "description": "Nenhum produto encontrado com a marca informado"
+          },
+          "500": {
+            "description": "Não foi possível concluir essa operação"
+          }
+        }
+      }
+    },
+    "/products/findByFurnisher/{furnisher}": {
+      "get": {
+        "description": "Essa rota é responsável pela pesquisa de um produto pelo seu fornecedor",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "furnisher",
+            "in": "path",
+            "allowEmptyValue": false,
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produto(s) localizado(s) com sucesso"
+          },
+          "404": {
+            "description": "Nenhum produto encontrado com o fornecedor informado"
+          },
+          "500": {
+            "description": "Não foi possível concluir essa operação"
+          }
+        }
+      }
+    },
     "/products/add": {
       "post": {
         "description": "Essa rota é responsável por adicionar produto",

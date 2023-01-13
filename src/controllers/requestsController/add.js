@@ -5,6 +5,7 @@ const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync("./src/db.json");
 const db = low(adapter);
 const { PrismaClient } = require("@prisma/client");
+const moment = require("moment");
 
 const host = db.get("settings.host").value();
 const database = db.get("settings.database").value();
@@ -41,22 +42,24 @@ module.exports = async (req, res) => {
         payload: checkedValues,
       });
     } else {
-      let lastId = prisma.$queryRaw`SELECT MAX(CODIGO) as 'value' FROM pedido;`;
+      let lastId =
+        await prisma.$queryRaw`SELECT MAX(CODIGO) as 'value' FROM pedido;`;
+      let dateTime = new Date();
       const request = await prisma.pedido.create({
         data: {
           CODIGO: parseInt(lastId[0].value + 1, 10),
-          DATA: req.body.data,
-          HORA: req.body.hora,
-          CLIENTE: req.body.cliente,
-          VENDEDOR: req.body.vendedor,
+          DATA: dateTime,
+          HORA: moment(dateTime).subtract(3, "hours")._d,
+          CLIENTE: parseInt(req.body.cliente),
+          VENDEDOR: parseInt(req.body.vendedor),
           OBS_PEDIDO: req.body.obs_pedido,
           OBS_NFE: req.body.obs_nfe,
-          VLR_PRODUTOS: req.body.vlr_produtos,
-          PERC_DESCONTO: req.body.perc_desconto,
-          VLR_DESCONTO: req.body.vlr_desconto,
-          PERC_ACRESCIMO: req.body.perc_acrescimo,
-          VLR_ACRESCIMO: req.body.vlr_acrescimo,
-          VLR_TOTAL: req.body.vlr_total,
+          VLR_PRODUTOS: parseFloat(req.body.vlr_produtos),
+          PERC_DESCONTO: parseFloat(req.body.perc_desconto),
+          VLR_DESCONTO: parseFloat(req.body.vlr_desconto),
+          PERC_ACRESCIMO: parseFloat(req.body.perc_acrescimo),
+          VLR_ACRESCIMO: parseFloat(req.body.vlr_acrescimo),
+          VLR_TOTAL: parseFloat(req.body.vlr_total),
         },
       });
 
@@ -73,6 +76,7 @@ module.exports = async (req, res) => {
       await prisma.$disconnect();
     })
     .catch(async (e) => {
+      console.log(e);
       res.status(500).send({
         status: "error",
         message: "Não foi possível concluir essa operação",

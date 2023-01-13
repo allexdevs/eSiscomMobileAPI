@@ -6,12 +6,14 @@
   "scripts": {
     "dev": "node ./src/app.js",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "debug": "node ./src/app.js"
   },
   "dependencies": {
     "@prisma/client": "^4.7.1",
     "express": "^4.18.2",
     "lowdb": "1.0.0",
+    "moment": "^2.29.4",
     "node-fetch": "1.7.3",
     "swagger-ui-express": "^4.6.0"
   },
