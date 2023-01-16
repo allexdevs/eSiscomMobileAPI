@@ -26,7 +26,9 @@ module.exports = async (req, res) => {
   const findProductBySubgroup = async () => {
     const foundProducts = await prisma.produtos.findMany({
       where: {
-        SUBGRUPO: parseInt(subgroup),
+        SUBGRUPO_NOME: {
+          contains: subgroup,
+        },
       },
     });
 
@@ -35,8 +37,8 @@ module.exports = async (req, res) => {
         status: "error",
         params: {
           name: "subgroup",
-          type: "number",
-          value: parseInt(subgroup),
+          type: "string",
+          value: subgroup,
         },
         message: "Nenhum produto encontrado com o grupo informado",
         payload: [],
@@ -46,8 +48,8 @@ module.exports = async (req, res) => {
         status: "success",
         params: {
           name: "subgroup",
-          type: "number",
-          value: parseInt(subgroup),
+          type: "string",
+          value: subgroup,
         },
         message: "Produto(s) localizado(s) com sucesso",
         payload: foundProducts,

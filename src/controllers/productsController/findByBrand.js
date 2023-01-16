@@ -26,7 +26,9 @@ module.exports = async (req, res) => {
   const findProductsByBrand = async () => {
     const foundProducts = await prisma.produtos.findMany({
       where: {
-        MARCA: parseInt(brand),
+        MARCA_NOME: {
+          contains: brand,
+        },
       },
     });
 
@@ -35,8 +37,8 @@ module.exports = async (req, res) => {
         status: "error",
         params: {
           name: "brand",
-          type: "number",
-          value: parseInt(brand),
+          type: "string",
+          value: brand,
         },
         message: "Nenhum produto encontrado com a marca informada",
         payload: [],
@@ -45,9 +47,9 @@ module.exports = async (req, res) => {
       res.status(200).send({
         status: "success",
         params: {
-          name: "group",
-          type: "number",
-          value: parseInt(brand),
+          name: "brand",
+          type: "string",
+          value: brand,
         },
         message: "Produto(s) localizado(s) com sucesso",
         payload: foundProducts,

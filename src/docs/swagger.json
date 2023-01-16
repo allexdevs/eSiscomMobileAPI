@@ -396,7 +396,7 @@
             "allowEmptyValue": false,
             "required": true,
             "schema": {
-              "type": "number"
+              "type": "string"
             }
           }
         ],
@@ -424,7 +424,7 @@
             "allowEmptyValue": false,
             "required": true,
             "schema": {
-              "type": "number"
+              "type": "string"
             }
           }
         ],
@@ -452,7 +452,7 @@
             "allowEmptyValue": false,
             "required": true,
             "schema": {
-              "type": "number"
+              "type": "string"
             }
           }
         ],
@@ -480,7 +480,7 @@
             "allowEmptyValue": false,
             "required": true,
             "schema": {
-              "type": "number"
+              "type": "string"
             }
           }
         ],
