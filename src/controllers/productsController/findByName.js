@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
   let name = req.params.name;
 
   const findProductByName = async () => {
-    const foundProduct = await prisma.produtos.findFirst({
+    const foundProduct = await prisma.produtos.findMany({
       where: {
         NOME: {
           contains: name,
@@ -40,7 +40,7 @@ module.exports = async (req, res) => {
           type: "string",
           value: name,
         },
-        payload: {},
+        payload: [],
       });
     } else {
       res.status(200).send({
