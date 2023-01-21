@@ -588,6 +588,20 @@
         }
       }
     },
+    "/requests/findAll": {
+      "get": {
+        "description": "Essa rota é responsável pela listagem de todos os pedidos",
+        "tags": ["Requests"],
+        "responses": {
+          "200": {
+            "description": "Pedidos listados com sucesso"
+          },
+          "500": {
+            "description": "Não foi possível concluir essa operação"
+          }
+        }
+      }
+    },
     "/requests/add": {
       "post": {
         "description": "Essa rota é responsável pela adição de um novo pedido",
@@ -790,14 +804,6 @@
       "Request": {
         "type": "object",
         "properties": {
-          "data": {
-            "type": "string",
-            "required": true
-          },
-          "hora": {
-            "type": "string",
-            "required": true
-          },
           "cliente": {
             "type": "number",
             "required": true

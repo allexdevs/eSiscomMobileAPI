@@ -34,9 +34,34 @@ const removeMask = (value) =>
 
 const upperCase = (value) => (value !== "" ? value.toUpperCase() : value);
 
+const createDate = () => {
+  let date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth();
+  let year = date.getFullYear();
+
+  let fullDate = new Date(year, month, day);
+  return fullDate;
+};
+
+const createTime = () => {
+  let date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth();
+  let year = date.getFullYear();
+  let hour = date.getHours();
+  let minute = date.getMinutes();
+  let second = date.getSeconds();
+
+  let fullTime = new Date(year, month, day, hour, minute, second);
+  return fullTime;
+};
+
 module.exports = {
   normalizePort,
   checkEmptyValues,
   upperCase,
   removeMask,
+  createDate,
+  createTime,
 };

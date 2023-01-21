@@ -7,14 +7,14 @@ const db = low(adapter);
 const { PrismaClient } = require("@prisma/client");
 const moment = require("moment");
 
+// helpers
+const { createDate, createTime } = require("../../utils/helpers");
+
 const host = db.get("settings.host").value();
 const database = db.get("settings.database").value();
 const username = db.get("settings.username").value();
 const password = db.get("settings.password").value();
 const port = db.get("settings.port").value();
-
-// helpers
-const helpers = require("../../utils/helpers");
 
 const prisma = new PrismaClient({
   datasources: {
@@ -26,42 +26,49 @@ const prisma = new PrismaClient({
 
 module.exports = async (req, res) => {
   let requestBody = req.body;
-  const checkedValues = helpers.checkEmptyValues(requestBody, [
-    "obs_pedido",
-    "obs_nfe",
-    "perc_desconto",
-    "vlr_desconto",
-    "perc_acrescimo",
-    "vlr_acrescimo",
-  ]);
+
   const addNewRequest = async () => {
-    if (checkedValues.length > 0) {
+    if (
+      !requestBody.cliente ||
+      !requestBody.vendedor ||
+      !requestBody.vlr_produtos ||
+      !requestBody.vlr_total
+    ) {
       res.status(400).send({
         status: "error",
         message: "A requisição possui valores vazios",
-        payload: checkedValues,
+        payload: [
+          { field: "cliente", value: requestBody.cliente },
+          { field: "vendedor", value: requestBody.vendedor },
+          { field: "vlr_produtos", value: requestBody.vlr_produtos },
+          { field: "vlr_total", value: requestBody.vlr_total },
+        ],
       });
     } else {
       let lastId =
         await prisma.$queryRaw`SELECT MAX(CODIGO) as 'value' FROM pedido;`;
-      let dateTime = new Date();
+      let date = createDate();
+      let time = createTime();
       const request = await prisma.pedido.create({
         data: {
           CODIGO: parseInt(lastId[0].value + 1, 10),
-          DATA: dateTime,
-          HORA: moment(dateTime).subtract(3, "hours")._d,
-          CLIENTE: parseInt(req.body.cliente),
-          VENDEDOR: parseInt(req.body.vendedor),
-          OBS_PEDIDO: req.body.obs_pedido,
-          OBS_NFE: req.body.obs_nfe,
-          VLR_PRODUTOS: parseFloat(req.body.vlr_produtos),
-          PERC_DESCONTO: parseFloat(req.body.perc_desconto),
-          VLR_DESCONTO: parseFloat(req.body.vlr_desconto),
-          PERC_ACRESCIMO: parseFloat(req.body.perc_acrescimo),
-          VLR_ACRESCIMO: parseFloat(req.body.vlr_acrescimo),
-          VLR_TOTAL: parseFloat(req.body.vlr_total),
+          DATA: date,
+          HORA: moment(time).subtract("hours", 3)._d,
+          CLIENTE: parseInt(requestBody.cliente),
+          VENDEDOR: parseInt(requestBody.vendedor),
+          OBS_PEDIDO: requestBody.obs_pedido,
+          OBS_NFE: requestBody.obs_nfe,
+          VLR_PRODUTOS: parseFloat(requestBody.vlr_produtos),
+          PERC_DESCONTO: parseFloat(requestBody.perc_desconto),
+          VLR_DESCONTO: parseFloat(requestBody.vlr_desconto),
+          PERC_ACRESCIMO: parseFloat(requestBody.perc_acrescimo),
+          VLR_ACRESCIMO: parseFloat(requestBody.vlr_acrescimo),
+          VLR_TOTAL: parseFloat(requestBody.vlr_total),
         },
       });
+
+      console.log("Data:", date);
+      console.log("Hora:", time);
 
       res.status(201).send({
         status: "success",
